@@ -50,7 +50,7 @@ describe("test works", () => {
             let résultat = vérificateur.Vérifier(chaîne);
 
             let premièreLigne = résultat.split(os.EOL)[0];
-            expect(premièreLigne).toEqual(Expressions.BONJOUR)
+            expect(premièreLigne).toEqual(langue.Saluer())
         });
 
     test.each([...nonPalindromes, palindrome])(
@@ -67,7 +67,7 @@ describe("test works", () => {
             let résultat = vérificateur.Vérifier(chaîne);
 
             let premièreLigne = résultat.split(os.EOL)[0];
-            expect(premièreLigne).toEqual(Expressions.HELLO)
+            expect(premièreLigne).toEqual(langue.Saluer())
         });
 
     test.each([...nonPalindromes, palindrome])(
@@ -103,6 +103,6 @@ describe("test works", () => {
 
             let lignes = résultat.split(os.EOL);
             let dernièreLigne = lignes[lignes.length - 1];
-        expect(dernièreLigne).toEqual(Expressions.GOODBYE)
+            expect(dernièreLigne).toEqual(Expressions.GOODBYE)
         });
 });
