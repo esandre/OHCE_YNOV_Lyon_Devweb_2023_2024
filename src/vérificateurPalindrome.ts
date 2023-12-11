@@ -2,7 +2,7 @@ import * as os from "os";
 import {Expressions} from "./expressions";
 import {LangueInterface} from "./langue.interface";
 
-export class VérificateurPalindrome{
+export class VérificateurPalindrome {
     private readonly _langue: LangueInterface;
 
     constructor(langue: LangueInterface) {
@@ -13,9 +13,9 @@ export class VérificateurPalindrome{
     public Vérifier(chaîne: string): string {
         let miroir = chaîne.split('').reverse().join('');
 
-        let sortie = Expressions.BONJOUR + os.EOL + miroir + os.EOL;
+        let sortie = this._langue.Saluer() + os.EOL + miroir + os.EOL;
 
-        if(miroir == chaîne)
+        if (miroir == chaîne)
             sortie += this._langue.Féliciter() + os.EOL;
 
         return sortie + Expressions.AU_REVOIR;
