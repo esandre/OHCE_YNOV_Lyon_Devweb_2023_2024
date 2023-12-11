@@ -2,7 +2,8 @@ import * as os from "os";
 import {Expressions} from "../src/expressions";
 import {LangueFrançaise} from "../src/langueFrançaise";
 import {VérificateurPalindromeBuilder} from "./utilities/vérificateurPalindromeBuilder";
-import {VérificateurPalindrome} from "../src/vérificateurPalindrome";
+import {LangueAnglaise} from "../src/langueAnglaise";
+import {LangueInterface} from "../src/langue.interface";
 
 const palindrome = 'radar';
 const nonPalindromes = ['test', 'ynov']
@@ -18,20 +19,21 @@ describe("test works", () => {
           expect(résultat).toContain(attendu);
    });
 
-   test("ETANT DONNE un utilisateur parlant la langue française " +
+   test.each([
+       [new LangueFrançaise(), Expressions.BIEN_DIT],
+       [new LangueAnglaise(), Expressions.WELL_SAID],
+   ])("ETANT DONNE un utilisateur parlant la %s " +
        "QUAND on saisit un palindrome " +
        "ALORS celui-ci est renvoyé " +
-       "ET 'Bien dit !' est envoyé ensuite",
-    () =>{
-        let langue = new LangueFrançaise();
-
+       "ET '%s' est envoyé ensuite",
+    (langue: LangueInterface, attendu: string) =>{
         let vérificateur = new VérificateurPalindromeBuilder()
             .AyantPourLangue(langue)
             .Build();
 
         let résultat = vérificateur.Vérifier(palindrome);
 
-        expect(résultat).toContain(palindrome + os.EOL + Expressions.BIEN_DIT);
+        expect(résultat).toContain(palindrome + os.EOL + attendu);
    });
 
    test.each([...nonPalindromes, palindrome])('QUAND on saisit une chaîne %s ' +

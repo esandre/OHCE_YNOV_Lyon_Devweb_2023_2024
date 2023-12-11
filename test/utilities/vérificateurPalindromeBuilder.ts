@@ -1,8 +1,9 @@
 import {VérificateurPalindrome} from "../../src/vérificateurPalindrome";
 import {LangueFrançaise} from "../../src/langueFrançaise";
+import {LangueInterface} from "../../src/langue.interface";
 
 export class VérificateurPalindromeBuilder {
-    private _langue = new LangueFrançaise();
+    private _langue : LangueInterface = new LangueFrançaise();
 
     public static Default() {
         return new VérificateurPalindromeBuilder().Build();
@@ -12,7 +13,7 @@ export class VérificateurPalindromeBuilder {
         return new VérificateurPalindrome(this._langue);
     }
 
-    public AyantPourLangue(langue: LangueFrançaise): VérificateurPalindromeBuilder {
+    public AyantPourLangue(langue: LangueInterface): VérificateurPalindromeBuilder {
         this._langue = langue;
         return this;
     }

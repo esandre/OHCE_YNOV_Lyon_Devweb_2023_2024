@@ -1,12 +1,12 @@
 import {LangueInterface} from "./langue.interface";
 import {Expressions} from "./expressions";
 
-export class LangueFrançaise implements LangueInterface {
+export class LangueAnglaise implements LangueInterface {
     public Féliciter(): string {
-        return Expressions.BIEN_DIT;
+        return Expressions.WELL_SAID;
     }
 
     public toString() : string {
-        return "Langue Française";
+        return "Langue Anglaise";
     }
 }
