@@ -18,6 +18,6 @@ export class VérificateurPalindrome {
         if (miroir == chaîne)
             sortie += this._langue.Féliciter() + os.EOL;
 
-        return sortie + Expressions.AU_REVOIR;
+        return sortie + this._langue.Acquitter();
     }
 }

@@ -70,13 +70,39 @@ describe("test works", () => {
             expect(premièreLigne).toEqual(Expressions.HELLO)
         });
 
-    test.each([...nonPalindromes, palindrome])('QUAND on saisit une chaîne %s ' +
+    test.each([...nonPalindromes, palindrome])(
+        'ETANT DONNE un utilisateur parlant français ' +
+        'QUAND on saisit une chaîne %s ' +
         'ALORS "Au revoir" est envoyé en dernier.',
         (chaîne: string) => {
-            let résultat = VérificateurPalindromeBuilder.Default().Vérifier(chaîne);
+            const langue = new LangueFrançaise();
+            let vérificateur =
+                new VérificateurPalindromeBuilder()
+                    .AyantPourLangue(langue)
+                    .Build();
+
+            let résultat = vérificateur.Vérifier(chaîne);
 
             let lignes = résultat.split(os.EOL);
             let dernièreLigne = lignes[lignes.length - 1];
             expect(dernièreLigne).toEqual(Expressions.AU_REVOIR)
+        });
+
+    test.each([...nonPalindromes, palindrome])(
+        'ETANT DONNE un utilisateur parlant anglais ' +
+        'QUAND on saisit une chaîne %s ' +
+        'ALORS "Goodbye" est envoyé en dernier.',
+        (chaîne: string) => {
+            const langue = new LangueAnglaise();
+            let vérificateur =
+                new VérificateurPalindromeBuilder()
+                    .AyantPourLangue(langue)
+                    .Build();
+
+            let résultat = vérificateur.Vérifier(chaîne);
+
+            let lignes = résultat.split(os.EOL);
+            let dernièreLigne = lignes[lignes.length - 1];
+        expect(dernièreLigne).toEqual(Expressions.GOODBYE)
         });
 });
