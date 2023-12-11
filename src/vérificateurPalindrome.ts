@@ -5,9 +5,11 @@ export class VérificateurPalindrome{
     public static Vérifier(chaîne: string): string {
         let miroir = chaîne.split('').reverse().join('');
 
-        if(miroir == chaîne)
-            return miroir + os.EOL + "Bien dit !";
+        let sortie = "Bonjour" + os.EOL + miroir + os.EOL;
 
-        return miroir;
+        if(miroir == chaîne)
+            sortie += "Bien dit !" + os.EOL;
+
+        return sortie;
     }
 }
