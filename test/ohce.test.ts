@@ -36,29 +36,16 @@ describe("test works", () => {
             expect(résultat).toContain(palindrome + os.EOL + attendu);
         });
 
-    test.each([...nonPalindromes, palindrome])(
-        'ETANT DONNE un utilisateur parlant français ' +
+    test.each([
+        [new LangueFrançaise(), "test"],
+        [new LangueFrançaise(), "radar"],
+        [new LangueAnglaise(), "test"],
+        [new LangueAnglaise(), "radar"],
+    ])(
+        'ETANT DONNE un utilisateur parlant %s ' +
         'QUAND on saisit une chaîne %s ' +
-        'ALORS "Bonjour" est envoyé avant toute réponse',
-        (chaîne: string) => {
-            const langue = new LangueFrançaise();
-            let vérificateur =
-                new VérificateurPalindromeBuilder()
-                    .AyantPourLangue(langue)
-                    .Build();
-
-            let résultat = vérificateur.Vérifier(chaîne);
-
-            let premièreLigne = résultat.split(os.EOL)[0];
-            expect(premièreLigne).toEqual(langue.Saluer())
-        });
-
-    test.each([...nonPalindromes, palindrome])(
-        'ETANT DONNE un utilisateur parlant anglais ' +
-        'QUAND on saisit une chaîne %s ' +
-        'ALORS "Hello" est envoyé avant toute réponse',
-        (chaîne: string) => {
-            const langue = new LangueAnglaise();
+        'ALORS les salutations de cette langue sont envoyées avant toute réponse',
+        (langue: LangueInterface, chaîne: string) => {
             let vérificateur =
                 new VérificateurPalindromeBuilder()
                     .AyantPourLangue(langue)
