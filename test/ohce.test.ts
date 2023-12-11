@@ -1,11 +1,12 @@
 import {VérificateurPalindrome} from "../src/vérificateurPalindrome";
 import * as os from "os";
+import {Expressions} from "../src/expressions";
+
+const palindrome = 'radar';
+const nonPalindromes = ['test', 'ynov']
 
 describe("test works", () => {
-   test.each([
-       ['test'],
-       ['ynov']
-   ])("QUAND on saisit un non-palindrome %s " +
+   test.each([...nonPalindromes])("QUAND on saisit un non-palindrome %s " +
        "ALORS elle est renvoyée en miroir",
        (chaîne : string) => {
           let résultat = VérificateurPalindrome.Vérifier(chaîne);
@@ -17,19 +18,27 @@ describe("test works", () => {
    test("QUAND on saisit un palindrome " +
        "ALORS celui-ci est renvoyé " +
        "ET 'Bien dit !' est envoyé ensuite", () =>{
-      const palindrome = "radar";
-
       let résultat = VérificateurPalindrome.Vérifier(palindrome);
 
-      expect(résultat).toContain(palindrome + os.EOL + "Bien dit !");
+      expect(résultat).toContain(palindrome + os.EOL + Expressions.BIEN_DIT);
    });
 
-   test.each([['test'], ['radar']])('QUAND on saisit une chaîne %s ' +
+   test.each([...nonPalindromes, palindrome])('QUAND on saisit une chaîne %s ' +
        'ALORS "Bonjour" est envoyé avant toute réponse',
     (chaîne: string) => {
        let résultat = VérificateurPalindrome.Vérifier(chaîne);
 
        let premièreLigne = résultat.split(os.EOL)[0];
-       expect(premièreLigne).toEqual("Bonjour")
+       expect(premièreLigne).toEqual(Expressions)
+   });
+
+    test.each([...nonPalindromes, palindrome])('QUAND on saisit une chaîne %s ' +
+       'ALORS "Au revoir" est envoyé en dernier.',
+    (chaîne: string) => {
+       let résultat = VérificateurPalindrome.Vérifier(chaîne);
+
+       let lignes = résultat.split(os.EOL);
+       let dernièreLigne = lignes[lignes.length - 1];
+       expect(dernièreLigne).toEqual(Expressions.AU_REVOIR)
    });
 });
