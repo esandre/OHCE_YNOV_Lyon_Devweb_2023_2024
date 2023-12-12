@@ -1,4 +1,6 @@
 import * as os from "os";
+import './utilities/stringMatchers.d.ts';
+import './utilities/stringMatchers';
 import {Expressions} from "../src/expressions";
 import {LangueFrançaise} from "../src/langueFrançaise";
 import {VérificateurPalindromeBuilder} from "./utilities/vérificateurPalindromeBuilder";
@@ -72,10 +74,9 @@ describe("test works", () => {
                     .Build();
 
             let résultat = vérificateur.Vérifier(chaîne);
-
-            let premièreLigne = résultat.split(os.EOL)[0];
             let attendu = langueFake.Saluer(momentDeLaJournée);
-            expect(premièreLigne).toEqual(attendu)
+            // @ts-ignore
+            expect(résultat).ayantPourPremièreLigne(attendu)
         });
 
     test.each([...nonPalindromes, palindrome])(
@@ -91,9 +92,8 @@ describe("test works", () => {
 
             let résultat = vérificateur.Vérifier(chaîne);
 
-            let lignes = résultat.split(os.EOL);
-            let dernièreLigne = lignes[lignes.length - 1];
-            expect(dernièreLigne).toEqual(Expressions.AU_REVOIR)
+            // @ts-ignore
+            expect(résultat).ayantPourDernièreLigne(Expressions.AU_REVOIR)
         });
 
     test.each([...nonPalindromes, palindrome])(
@@ -108,9 +108,7 @@ describe("test works", () => {
                     .Build();
 
             let résultat = vérificateur.Vérifier(chaîne);
-
-            let lignes = résultat.split(os.EOL);
-            let dernièreLigne = lignes[lignes.length - 1];
-            expect(dernièreLigne).toEqual(Expressions.GOODBYE)
+            // @ts-ignore
+            expect(résultat).ayantPourDernièreLigne(Expressions.GOODBYE)
         });
 });
