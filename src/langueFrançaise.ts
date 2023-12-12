@@ -2,6 +2,7 @@ import {LangueInterface} from "./langue.interface";
 import {Expressions} from "./expressions";
 
 export class LangueFrançaise implements LangueInterface {
+
     public Acquitter(): string {
         return Expressions.AU_REVOIR;
     }

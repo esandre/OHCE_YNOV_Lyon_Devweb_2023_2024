@@ -1,9 +1,9 @@
 import {VérificateurPalindrome} from "../../src/vérificateurPalindrome";
-import {LangueFrançaise} from "../../src/langueFrançaise";
 import {LangueInterface} from "../../src/langue.interface";
+import {LangueStub} from "./langueStub";
 
 export class VérificateurPalindromeBuilder {
-    private _langue: LangueInterface = new LangueFrançaise();
+    private _langue: LangueInterface = new LangueStub();
 
     public static Default() {
         return new VérificateurPalindromeBuilder().Build();

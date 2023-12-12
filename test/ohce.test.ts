@@ -4,6 +4,8 @@ import {LangueFrançaise} from "../src/langueFrançaise";
 import {VérificateurPalindromeBuilder} from "./utilities/vérificateurPalindromeBuilder";
 import {LangueAnglaise} from "../src/langueAnglaise";
 import {LangueInterface} from "../src/langue.interface";
+import {LangueSpy} from "./utilities/langueSpy";
+import {LangueFake} from "./utilities/langueFake";
 
 const palindrome = 'radar';
 const nonPalindromes = ['test', 'ynov']
@@ -36,25 +38,41 @@ describe("test works", () => {
             expect(résultat).toContain(palindrome + os.EOL + attendu);
         });
 
-    test.each([
-        [new LangueFrançaise(), "test"],
-        [new LangueFrançaise(), "radar"],
-        [new LangueAnglaise(), "test"],
-        [new LangueAnglaise(), "radar"],
-    ])(
+    test.each([...nonPalindromes, palindrome])(
         'ETANT DONNE un utilisateur parlant %s ' +
         'QUAND on saisit une chaîne %s ' +
         'ALORS les salutations de cette langue sont envoyées avant toute réponse',
-        (langue: LangueInterface, chaîne: string) => {
+        (chaîne: string) => {
+            let langueFake = new LangueFake();
+
             let vérificateur =
                 new VérificateurPalindromeBuilder()
-                    .AyantPourLangue(langue)
+                    .AyantPourLangue(langueFake)
                     .Build();
 
             let résultat = vérificateur.Vérifier(chaîne);
 
             let premièreLigne = résultat.split(os.EOL)[0];
-            expect(premièreLigne).toEqual(langue.Saluer())
+            expect(premièreLigne).toEqual(langueFake.Saluer())
+        });
+
+    test.each([...nonPalindromes, palindrome])(
+        'ETANT DONNE un utilisateur parlant %s ' +
+        'QUAND on saisit une chaîne %s ' +
+        'ALORS les salutations de cette langue sont envoyées avant toute réponse',
+        (chaîne: string) => {
+            let langueSpy = new LangueSpy();
+
+            let vérificateur =
+                new VérificateurPalindromeBuilder()
+                    .AyantPourLangue(langueSpy)
+                    .Build();
+
+            let résultat = vérificateur.Vérifier(chaîne);
+
+            let premièreLigne = résultat.split(os.EOL)[0];
+            expect(langueSpy.SaluerAEteConsulté()).toBe(true)
+            expect(premièreLigne).toEqual(langueSpy.Saluer())
         });
 
     test.each([...nonPalindromes, palindrome])(
