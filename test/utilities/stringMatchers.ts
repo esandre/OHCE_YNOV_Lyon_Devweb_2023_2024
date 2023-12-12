@@ -2,13 +2,16 @@ import * as os from "os";
 import {expect} from '@jest/globals';
 import type {MatcherFunction} from 'expect';
 
-const ayantPourDernièreLigne: MatcherFunction<[attendu: unknown]> =
+const ayantPourDernièreLigneNonVide: MatcherFunction<[attendu: unknown]> =
     function (actual: unknown, attendu: unknown) {
         if(typeof actual !== 'string') throw new Error("Only works with strings");
         if(typeof attendu !== 'string') throw new Error("Only works with strings");
 
-        const lignes = actual.split(os.EOL);
-        const dernièreLigne = lignes[lignes.length - 1];
+        const lignesNonVides = actual
+            .split(os.EOL)
+            .filter(line => line != "");
+
+        const dernièreLigne = lignesNonVides[lignesNonVides.length - 1];
 
         const pass = dernièreLigne == attendu;
         const message = pass
@@ -41,6 +44,6 @@ const ayantPourPremièreLigne: MatcherFunction<[attendu: unknown]> =
     };
 
 expect.extend({
-    ayantPourDernièreLigne,
+    ayantPourDernièreLigne: ayantPourDernièreLigneNonVide,
     ayantPourPremièreLigne,
 });
