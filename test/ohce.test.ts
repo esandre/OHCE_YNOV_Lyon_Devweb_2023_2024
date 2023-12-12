@@ -9,6 +9,13 @@ import {MomentDeLaJournée} from "../src/momentDeLaJournée";
 
 const palindrome = 'radar';
 const nonPalindromes = ['test', 'ynov']
+const momentsDeLaJournée = [
+    MomentDeLaJournée.Inconnu,
+    MomentDeLaJournée.Matin,
+    MomentDeLaJournée.AprèsMidi,
+    MomentDeLaJournée.Soirée,
+    MomentDeLaJournée.Nuit
+];
 
 describe("test works", () => {
     test.each([...nonPalindromes])(
@@ -40,16 +47,7 @@ describe("test works", () => {
         });
 
     function casesSalutations(){
-        let momentsDeLaJournée = [
-            MomentDeLaJournée.Inconnu,
-            MomentDeLaJournée.Matin,
-            MomentDeLaJournée.AprèsMidi,
-            MomentDeLaJournée.Soirée,
-            MomentDeLaJournée.Nuit,
-        ]
-
         let chaînes = [...nonPalindromes, palindrome];
-
         let cases: [MomentDeLaJournée, string][]  = [];
 
         for (let momentDeLaJournée of momentsDeLaJournée)
@@ -77,28 +75,6 @@ describe("test works", () => {
 
             let premièreLigne = résultat.split(os.EOL)[0];
             let attendu = langueFake.Saluer(momentDeLaJournée);
-            expect(premièreLigne).toEqual(attendu)
-        });
-
-    test.each([...nonPalindromes, palindrome])(
-        'ETANT DONNE un utilisateur parlant %s ' +
-        'ET que nous sommes l\'après-midi ' +
-        'QUAND on saisit une chaîne %s ' +
-        'ALORS les salutations de cette langue à ce moment de la journée sont envoyées avant toute réponse',
-        (chaîne: string) => {
-            let langueFake = new LangueFake();
-            let moment = MomentDeLaJournée.AprèsMidi;
-
-            let vérificateur =
-                new VérificateurPalindromeBuilder()
-                    .AyantPourLangue(langueFake)
-                    .AyantPourMomentDeLaJournée(moment)
-                    .Build();
-
-            let résultat = vérificateur.Vérifier(chaîne);
-
-            let premièreLigne = résultat.split(os.EOL)[0];
-            let attendu = langueFake.Saluer(moment);
             expect(premièreLigne).toEqual(attendu)
         });
 
