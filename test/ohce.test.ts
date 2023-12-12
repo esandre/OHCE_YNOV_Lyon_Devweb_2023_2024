@@ -5,6 +5,7 @@ import {VérificateurPalindromeBuilder} from "./utilities/vérificateurPalindrom
 import {LangueAnglaise} from "../src/langueAnglaise";
 import {LangueInterface} from "../src/langue.interface";
 import {LangueFake} from "./utilities/langueFake";
+import {MomentDeLaJournée} from "../src/momentDeLaJournée";
 
 const palindrome = 'radar';
 const nonPalindromes = ['test', 'ynov']
@@ -39,20 +40,24 @@ describe("test works", () => {
 
     test.each([...nonPalindromes, palindrome])(
         'ETANT DONNE un utilisateur parlant %s ' +
+        'ET que nous sommes le matin ' +
         'QUAND on saisit une chaîne %s ' +
-        'ALORS les salutations de cette langue sont envoyées avant toute réponse',
+        'ALORS les salutations de cette langue à ce moment de la journée sont envoyées avant toute réponse',
         (chaîne: string) => {
             let langueFake = new LangueFake();
+            let moment = MomentDeLaJournée.Matin;
 
             let vérificateur =
                 new VérificateurPalindromeBuilder()
                     .AyantPourLangue(langueFake)
+                    .AyantPourMomentDeLaJournée(moment)
                     .Build();
 
             let résultat = vérificateur.Vérifier(chaîne);
 
             let premièreLigne = résultat.split(os.EOL)[0];
-            expect(premièreLigne).toEqual(langueFake.Saluer())
+            let attendu = langueFake.Saluer(moment);
+            expect(premièreLigne).toEqual(attendu)
         });
 
     test.each([...nonPalindromes, palindrome])(

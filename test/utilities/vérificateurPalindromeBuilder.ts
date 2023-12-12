@@ -1,6 +1,7 @@
 import {VérificateurPalindrome} from "../../src/vérificateurPalindrome";
 import {LangueInterface} from "../../src/langue.interface";
 import {LangueStub} from "./langueStub";
+import {MomentDeLaJournée} from "../../src/momentDeLaJournée";
 
 export class VérificateurPalindromeBuilder {
     private _langue: LangueInterface = new LangueStub();
@@ -15,6 +16,10 @@ export class VérificateurPalindromeBuilder {
 
     public AyantPourLangue(langue: LangueInterface): VérificateurPalindromeBuilder {
         this._langue = langue;
+        return this;
+    }
+
+    public AyantPourMomentDeLaJournée(moment: MomentDeLaJournée) {
         return this;
     }
 }

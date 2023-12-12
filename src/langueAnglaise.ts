@@ -1,12 +1,13 @@
 import {LangueInterface} from "./langue.interface";
 import {Expressions} from "./expressions";
+import {MomentDeLaJournée} from "./momentDeLaJournée";
 
 export class LangueAnglaise implements LangueInterface {
     public Acquitter(): string {
         return Expressions.GOODBYE;
     }
 
-    public Saluer(): string {
+    public Saluer(moment: MomentDeLaJournée): string {
         return Expressions.HELLO;
     }
 

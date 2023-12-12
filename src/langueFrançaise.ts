@@ -1,5 +1,6 @@
 import {LangueInterface} from "./langue.interface";
 import {Expressions} from "./expressions";
+import {MomentDeLaJournée} from "./momentDeLaJournée";
 
 export class LangueFrançaise implements LangueInterface {
 
@@ -7,7 +8,7 @@ export class LangueFrançaise implements LangueInterface {
         return Expressions.AU_REVOIR;
     }
 
-    public Saluer(): string {
+    public Saluer(moment: MomentDeLaJournée): string {
         return Expressions.BONJOUR;
     }
 
