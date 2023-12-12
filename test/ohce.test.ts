@@ -61,6 +61,28 @@ describe("test works", () => {
         });
 
     test.each([...nonPalindromes, palindrome])(
+        'ETANT DONNE un utilisateur parlant %s ' +
+        'ET que nous sommes l\'après-midi ' +
+        'QUAND on saisit une chaîne %s ' +
+        'ALORS les salutations de cette langue à ce moment de la journée sont envoyées avant toute réponse',
+        (chaîne: string) => {
+            let langueFake = new LangueFake();
+            let moment = MomentDeLaJournée.AprèsMidi;
+
+            let vérificateur =
+                new VérificateurPalindromeBuilder()
+                    .AyantPourLangue(langueFake)
+                    .AyantPourMomentDeLaJournée(moment)
+                    .Build();
+
+            let résultat = vérificateur.Vérifier(chaîne);
+
+            let premièreLigne = résultat.split(os.EOL)[0];
+            let attendu = langueFake.Saluer(moment);
+            expect(premièreLigne).toEqual(attendu)
+        });
+
+    test.each([...nonPalindromes, palindrome])(
         'ETANT DONNE un utilisateur parlant français ' +
         'QUAND on saisit une chaîne %s ' +
         'ALORS "Au revoir" est envoyé en dernier.',

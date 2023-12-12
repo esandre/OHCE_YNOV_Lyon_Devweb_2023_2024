@@ -7,7 +7,7 @@ export class LangueFake implements LangueInterface {
     }
 
     Saluer(moment: MomentDeLaJournée): string {
-        return "Salutations";
+        return "Salutations/" + moment.toString();
     }
     Acquitter(): string {
         return "Acquittance";
