@@ -19,7 +19,7 @@ const momentsDeLaJournée = [
     MomentDeLaJournée.Nuit
 ];
 
-describe("test works", () => {
+describe("En tant qu'utilisateur je veux vérifier si un mot est un palindrome.", () => {
     test.each([...nonPalindromes])(
         "QUAND on saisit un non-palindrome %s " +
         "ALORS elle est renvoyée en miroir",
