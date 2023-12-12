@@ -1,13 +1,13 @@
 import * as os from "os";
 import './utilities/stringMatchers.d.ts';
 import './utilities/stringMatchers';
-import {Expressions} from "../src/expressions";
-import {LangueFrançaise} from "../src/langueFrançaise";
+import {Expressions} from "../src/domain/expressions";
+import {LangueFrançaise} from "../src/domain/langueFrançaise";
 import {VérificateurPalindromeBuilder} from "./utilities/vérificateurPalindromeBuilder";
-import {LangueAnglaise} from "../src/langueAnglaise";
-import {LangueInterface} from "../src/langue.interface";
+import {LangueAnglaise} from "../src/domain/langueAnglaise";
+import {LangueInterface} from "../src/domain/langue.interface";
 import {LangueFake} from "./utilities/langueFake";
-import {MomentDeLaJournée} from "../src/momentDeLaJournée";
+import {MomentDeLaJournée} from "../src/domain/momentDeLaJournée";
 
 const palindrome = 'radar';
 const nonPalindromes = ['test', 'ynov']

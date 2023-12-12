@@ -1,8 +1,8 @@
-import {LangueFrançaise} from "../src/langueFrançaise";
-import {Expressions} from "../src/expressions";
-import {LangueAnglaise} from "../src/langueAnglaise";
-import {LangueInterface} from "../src/langue.interface";
-import {MomentDeLaJournée} from "../src/momentDeLaJournée";
+import {LangueFrançaise} from "../src/domain/langueFrançaise";
+import {Expressions} from "../src/domain/expressions";
+import {LangueAnglaise} from "../src/domain/langueAnglaise";
+import {LangueInterface} from "../src/domain/langue.interface";
+import {MomentDeLaJournée} from "../src/domain/momentDeLaJournée";
 
 describe("Langues", () => {
     test.each([
