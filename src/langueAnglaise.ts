@@ -8,6 +8,18 @@ export class LangueAnglaise implements LangueInterface {
     }
 
     public Saluer(moment: MomentDeLaJournée): string {
+        if(moment == MomentDeLaJournée.Matin)
+            return Expressions.GOOD_MORNING;
+
+        if(moment == MomentDeLaJournée.AprèsMidi)
+            return Expressions.GOOD_AFTERNOON;
+
+        if(moment == MomentDeLaJournée.Soirée)
+            return Expressions.GOOD_EVENING;
+
+        if(moment == MomentDeLaJournée.Nuit)
+            return Expressions.GOOD_NIGHT;
+
         return Expressions.HELLO;
     }
 

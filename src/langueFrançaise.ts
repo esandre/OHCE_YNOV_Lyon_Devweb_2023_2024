@@ -9,6 +9,8 @@ export class LangueFrançaise implements LangueInterface {
     }
 
     public Saluer(moment: MomentDeLaJournée): string {
+        if(moment == MomentDeLaJournée.Soirée || moment == MomentDeLaJournée.Nuit)
+            return Expressions.BONSOIR;
         return Expressions.BONJOUR;
     }
 

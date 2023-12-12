@@ -15,7 +15,8 @@ describe("test works", () => {
         "QUAND on saisit un non-palindrome %s " +
         "ALORS elle est renvoyée en miroir",
         (chaîne: string) => {
-            let résultat = VérificateurPalindromeBuilder.Default().Vérifier(chaîne);
+            let résultat = VérificateurPalindromeBuilder.Default()
+                .Vérifier(chaîne);
 
             let attendu = chaîne.split('').reverse().join('');
             expect(résultat).toContain(attendu);
@@ -38,25 +39,44 @@ describe("test works", () => {
             expect(résultat).toContain(palindrome + os.EOL + attendu);
         });
 
-    test.each([...nonPalindromes, palindrome])(
-        'ETANT DONNE un utilisateur parlant %s ' +
-        'ET que nous sommes le matin ' +
+    function casesSalutations(){
+        let momentsDeLaJournée = [
+            MomentDeLaJournée.Inconnu,
+            MomentDeLaJournée.Matin,
+            MomentDeLaJournée.AprèsMidi,
+            MomentDeLaJournée.Soirée,
+            MomentDeLaJournée.Nuit,
+        ]
+
+        let chaînes = [...nonPalindromes, palindrome];
+
+        let cases: [MomentDeLaJournée, string][]  = [];
+
+        for (let momentDeLaJournée of momentsDeLaJournée)
+            for(let chaîne of chaînes)
+                cases.push([momentDeLaJournée, chaîne])
+
+        return cases;
+    }
+
+    test.each(casesSalutations())(
+        'ETANT DONNE un utilisateur parlant une langue ' +
+        'ET que nous sommes le %s ' +
         'QUAND on saisit une chaîne %s ' +
         'ALORS les salutations de cette langue à ce moment de la journée sont envoyées avant toute réponse',
-        (chaîne: string) => {
+        (momentDeLaJournée: MomentDeLaJournée, chaîne: string) => {
             let langueFake = new LangueFake();
-            let moment = MomentDeLaJournée.Matin;
 
             let vérificateur =
                 new VérificateurPalindromeBuilder()
                     .AyantPourLangue(langueFake)
-                    .AyantPourMomentDeLaJournée(moment)
+                    .AyantPourMomentDeLaJournée(momentDeLaJournée)
                     .Build();
 
             let résultat = vérificateur.Vérifier(chaîne);
 
             let premièreLigne = résultat.split(os.EOL)[0];
-            let attendu = langueFake.Saluer(moment);
+            let attendu = langueFake.Saluer(momentDeLaJournée);
             expect(premièreLigne).toEqual(attendu)
         });
 

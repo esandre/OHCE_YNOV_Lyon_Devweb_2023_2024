@@ -12,5 +12,4 @@ export class LangueFake implements LangueInterface {
     Acquitter(): string {
         return "Acquittance";
     }
-
 }
